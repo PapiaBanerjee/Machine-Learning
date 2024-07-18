@@ -1,0 +1,36 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+headers=["Area","Price"]
+data=[[2600,550000],[3000,565000],[3200,610000],[3600,680000],[4000,725000]]
+data=pd.DataFrame(data,columns=headers)
+data.to_csv('/content/drive/MyDrive/ML_Lab/house_price1.csv')
+
+data1=pd.read_csv('/content/drive/MyDrive/ML_Lab/house_price1.csv')
+data1
+
+plt.scatter(data1['Area'],data1['Price'],c='violet',marker='o')
+plt.xlabel("Area in sq. ft.")
+plt.ylabel("Price in US$")
+plt.show()
+
+x=np.array(data1['Area'])
+y=np.array(data1['Price'])
+meanx=sum(x)/len(x)
+meany=sum(y)/len(y)
+
+snum=0
+sden=0
+for i in range(len(x)):
+  snum=snum+(x[i]-meanx)*(y[i]-meany)
+  sden=sden+(x[i]-meanx)**2
+b1=snum/sden
+b0=meany-b1*meanx
+
+y3300=b0+b1*3300
+y5000=b0+b1*5000
+y6000=b0+b1*6000
+print("When area is 3300 sq. ft., the predicted price is: US$"+str(y3300))
+print("When area is 5000 sq. ft., the predicted price is: US$"+str(y5000))
+print("When area is 6000 sq. ft., the predicted price is: US$"+str(y6000))
