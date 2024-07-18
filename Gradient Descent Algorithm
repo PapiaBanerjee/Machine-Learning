@@ -1,0 +1,19 @@
+import numpy as np
+def gradient_descent(x,y):
+  var1 = var2 = 0
+  epoch=1000
+  n= len(x)
+  learning_rate = 0.001
+  for i in range(epoch):
+    y_predicted = var1 *x + var2 
+    cost = (1/n)*sum(val**2 for val in(y - y_predicted))
+    var1_calc =(-2/n)*sum(x*(y - y_predicted))
+    var2_calc = (-2/n)*sum(y - y_predicted)
+    var1 = var1 -learning_rate*var1_calc
+    var2 = var2 -learning_rate*var2_calc
+    print("var1{},var2{}, cost{}, iterations{}". format(var1, var2, cost, i))
+
+
+x = np.array([1,2,3,4,5])
+y = np.array([3,5,7,9,11])
+gradient_descent(x,y)
